@@ -7,7 +7,14 @@ import { PokemonSprites } from './PokemonSprites';
 import { PokemonStat } from './PokemonStat';
 import { PokemonType } from './PokemonType';
 
+export interface FirstPokelist {
+  name: string;
+  url: string;
+  results: [];
+}
+
 export interface PokemonGeneralType {
+  map(x: any): any,
   /** The identifier for this resource */
   id: number;
   /** The name for this resource */

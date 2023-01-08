@@ -1,4 +1,4 @@
-import { Screen } from './components/Screen';
+import { Body } from './components/Body';
 import { PokemonContextProvider } from './context/PokeContext';
 
 export function App() {
@@ -6,7 +6,7 @@ export function App() {
 
   return (
     <PokemonContextProvider>
-      <Screen />
+      <Body />
     </PokemonContextProvider>
   )
 }
