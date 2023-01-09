@@ -7,6 +7,10 @@ import { PokemonSprites } from './PokemonSprites';
 import { PokemonStat } from './PokemonStat';
 import { PokemonType } from './PokemonType';
 
+export interface PokeCart {
+  pickedPokem: PokemonGeneralType[]
+}
+
 export interface FirstPokelist {
   name: string;
   url: string;

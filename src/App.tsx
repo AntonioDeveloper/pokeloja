@@ -1,4 +1,4 @@
-import { Body } from './components/Body';
+import { Body } from './components/Body/Body';
 import { PokemonContextProvider } from './context/PokeContext';
 
 export function App() {

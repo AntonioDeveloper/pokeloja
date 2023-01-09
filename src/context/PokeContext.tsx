@@ -17,7 +17,7 @@ export const PokemonContext = createContext({} as PokemonContextType);
 
 export function PokemonContextProvider({ children }: PokemonContextProviderProps) {
 
-  const [firstPokeList, setFirsPokeList] = useState<FirstPokelist>({
+  const [firstPokeList, setFirstPokeList] = useState<FirstPokelist>({
     name: "",
     url: "",
     results: []
@@ -75,28 +75,34 @@ export function PokemonContextProvider({ children }: PokemonContextProviderProps
   let finalRes: any;
 
   useEffect(() => {
+    //Traz a lista de Nome e URLs
 
     api.get("?limit=10")
       .then((response) => {
-        setFirsPokeList(() => response.data);
-        urlArr = firstPokeList.results.map((t: FirstPokelist) => t.url);
-        dataArray = urlArr.map((url: string) => {
-          console.log(url);
-          return axios.get(url);
-        })
-        Promise.all(dataArray).then(res => {
-          finalRes = res.map((r: any) => {
-            return r.data;
-          })
-          console.log("Context FinalRes", finalRes);
-          setPokemon(() => finalRes)
-        })
+        setFirstPokeList(response.data);
+        console.log("STATE", firstPokeList);
       })
       .catch((err) => {
         console.log("Não achei nenhum Pokémon :(" + err);
       })
   }, []);
 
+  useEffect(() => {
+    //ACESSA AS URLs e obtém mais dados dos Pokemons
+    console.log("EFFECT", firstPokeList);
+
+    urlArr = firstPokeList.results.map((t: FirstPokelist) => t.url);
+    dataArray = urlArr.map((url: string) => {
+      return axios.get(url);
+    })
+    Promise.all(dataArray).then(res => {
+      finalRes = res.map((r: any) => {
+        return r.data;
+      })
+      console.log("Context FinalRes", finalRes);
+      setPokemon(() => finalRes)
+    })
+  }, [firstPokeList]);
 
   console.log("Context State", pokemonsList);
 
