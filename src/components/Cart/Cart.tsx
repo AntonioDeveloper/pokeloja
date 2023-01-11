@@ -4,12 +4,13 @@ import { PokemonGeneralType } from '../../@types/PokemonContextType';
 
 interface Products {
   products: any;
+  qtde: number;
 }
 
-export function Cart({ products }: Products) {
+export function Cart({ products, qtde }: Products) {
 
-  //console.log("PROD", products[0].name)
-  const { pokemonsList } = useContext(PokemonContext)
+  //console.log("PROD", products)
+  //const { pokemonsList } = useContext(PokemonContext)
 
   return (
     <div className="cart-container">
@@ -19,7 +20,8 @@ export function Cart({ products }: Products) {
           return (
             <div className="prod-block" key={prod.id}>
               <img src={prod.sprites.front_default} />
-              {/* <p>{prod.name}</p> */}
+              <p>{prod.name}</p>
+              <p>{qtde}</p>
             </div>
           )
         })}

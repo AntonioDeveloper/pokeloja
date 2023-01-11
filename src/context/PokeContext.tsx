@@ -60,6 +60,8 @@ export function PokemonContextProvider({ children }: PokemonContextProviderProps
     stats: [],
     /** A list of details showing types this Pokémon has */
     types: [],
+
+    qtde: 0
   });
 
   // useEffect(() => {
@@ -80,7 +82,7 @@ export function PokemonContextProvider({ children }: PokemonContextProviderProps
     api.get("?limit=10")
       .then((response) => {
         setFirstPokeList(response.data);
-        console.log("STATE", firstPokeList);
+        //console.log("STATE", firstPokeList);
       })
       .catch((err) => {
         console.log("Não achei nenhum Pokémon :(" + err);
@@ -89,7 +91,7 @@ export function PokemonContextProvider({ children }: PokemonContextProviderProps
 
   useEffect(() => {
     //ACESSA AS URLs e obtém mais dados dos Pokemons
-    console.log("EFFECT", firstPokeList);
+    //console.log("EFFECT", firstPokeList);
 
     urlArr = firstPokeList.results.map((t: FirstPokelist) => t.url);
     dataArray = urlArr.map((url: string) => {
@@ -99,12 +101,12 @@ export function PokemonContextProvider({ children }: PokemonContextProviderProps
       finalRes = res.map((r: any) => {
         return r.data;
       })
-      console.log("Context FinalRes", finalRes);
+      //console.log("Context FinalRes", finalRes);
       setPokemon(() => finalRes)
     })
   }, [firstPokeList]);
 
-  console.log("Context State", pokemonsList);
+  //console.log("Context State", pokemonsList);
 
   return (
     <PokemonContext.Provider value={{ pokemonsList }}>

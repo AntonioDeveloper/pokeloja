@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import { PokemonContext } from '../../context/PokeContext';
 import { PokemonGeneralType, PokeCart } from '../../@types/PokemonContextType';
 import { PokemonSprites } from '../../@types/PokemonSprites';
@@ -9,12 +9,16 @@ export function Body() {
 
   const { pokemonsList } = useContext(PokemonContext)
 
-  const [pickedPokem, setPickedPoken] = useState<PokeCart[]>([]);
+  const [pickedPokem, setPickedPoken] = useState<PokemonGeneralType[]>([]);
+
+  const [repeatedArray, setRepeatedArray] = useState<PokemonGeneralType[]>([]);
+
+  const [countPokemons, setCountPokemons] = useState<number>(0);
 
   // const isArr = Object.prototype.toString.call(pickedPokem) == '[object Array]';
   // pickedPokem.push("Pikachu")
 
-  console.log("TESTE", pickedPokem);
+  console.log("TESTE", repeatedArray);
 
   return (
     <div className="body-container">
@@ -27,7 +31,20 @@ export function Body() {
       <section className="board">
         {pokemonsList.map((res: PokemonGeneralType) => {
           return (
-            <div className="card" key={res.id} onClick={(e) => setPickedPoken((pickedPokem: any) => [...pickedPokem, res])}>
+            <div className="card" key={res.id} onClick={() => {
+              const repeatedItem = pickedPokem.find(item => {
+                return item === res
+              });
+              if (!repeatedItem) {
+                setPickedPoken((pickedPokem: any) => [...pickedPokem, res]);
+              } else {
+                setRepeatedArray((repeatedArray) => [...repeatedArray, res])
+                setCountPokemons((countPokemons) => countPokemons + 1)
+                console.log("OPS, já tenho esse item", repeatedItem);
+                return;
+              }
+              console.log("REPEATED", repeatedItem);
+            }}>
               <p>{res.name}</p>
               <img src={res.sprites.front_default} />
             </div>
@@ -35,7 +52,7 @@ export function Body() {
         })}
       </section>
 
-      <Cart products={pickedPokem} />
+      <Cart products={pickedPokem} qtde={countPokemons} />
 
     </div>
   )
