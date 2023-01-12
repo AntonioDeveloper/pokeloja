@@ -61,7 +61,7 @@ export function PokemonContextProvider({ children }: PokemonContextProviderProps
     /** A list of details showing types this Pokémon has */
     types: [],
 
-    qtde: 0
+    price: 0
   });
 
   // useEffect(() => {
@@ -99,8 +99,9 @@ export function PokemonContextProvider({ children }: PokemonContextProviderProps
     })
     Promise.all(dataArray).then(res => {
       finalRes = res.map((r: any) => {
+        r.data.price = parseFloat(((Math.random() * (100 - 10 + 1)) + 10).toFixed(2));
         return r.data;
-      })
+      });
       //console.log("Context FinalRes", finalRes);
       setPokemon(() => finalRes)
     })

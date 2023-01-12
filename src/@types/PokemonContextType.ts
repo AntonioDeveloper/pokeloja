@@ -56,5 +56,5 @@ export interface PokemonGeneralType {
   /** A list of details showing types this Pokémon has */
   types: PokemonType[];
 
-  qtde: number;
+  price: number;
 }

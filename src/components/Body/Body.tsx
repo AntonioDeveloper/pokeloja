@@ -13,7 +13,9 @@ export function Body() {
 
   const [repeatedArray, setRepeatedArray] = useState<PokemonGeneralType[]>([]);
 
-  const [countPokemons, setCountPokemons] = useState<number>(0);
+  // const [countPokemons, setCountPokemons] = useState<number>(0);
+
+  let qtde = 0;
 
   // const isArr = Object.prototype.toString.call(pickedPokem) == '[object Array]';
   // pickedPokem.push("Pikachu")
@@ -30,6 +32,7 @@ export function Body() {
 
       <section className="board">
         {pokemonsList.map((res: PokemonGeneralType) => {
+
           return (
             <div className="card" key={res.id} onClick={() => {
               const repeatedItem = pickedPokem.find(item => {
@@ -38,8 +41,8 @@ export function Body() {
               if (!repeatedItem) {
                 setPickedPoken((pickedPokem: any) => [...pickedPokem, res]);
               } else {
-                setRepeatedArray((repeatedArray) => [...repeatedArray, res])
-                setCountPokemons((countPokemons) => countPokemons + 1)
+                setRepeatedArray((repeatedArray) => [...repeatedArray, res]);
+                // setCountPokemons((countPokemons) => countPokemons + 1);
                 console.log("OPS, já tenho esse item", repeatedItem);
                 return;
               }
@@ -47,12 +50,13 @@ export function Body() {
             }}>
               <p>{res.name}</p>
               <img src={res.sprites.front_default} />
+              <p>Preço: {res.price}</p>
             </div>
           )
         })}
       </section>
 
-      <Cart products={pickedPokem} qtde={countPokemons} />
+      <Cart products={pickedPokem} />
 
     </div>
   )

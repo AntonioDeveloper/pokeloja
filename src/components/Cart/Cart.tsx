@@ -4,13 +4,20 @@ import { PokemonGeneralType } from '../../@types/PokemonContextType';
 
 interface Products {
   products: any;
-  qtde: number;
+
 }
 
-export function Cart({ products, qtde }: Products) {
+export function Cart({ products }: Products) {
 
-  //console.log("PROD", products)
+  console.log("PROD", products)
   //const { pokemonsList } = useContext(PokemonContext)
+
+  const values: [] = products.map((prod: PokemonGeneralType) => {
+    return prod.price;
+  })
+  console.log("PRICES", values)
+
+  const total = values.reduce((acc: number, curr: number) => acc + curr, 0);
 
   return (
     <div className="cart-container">
@@ -21,10 +28,11 @@ export function Cart({ products, qtde }: Products) {
             <div className="prod-block" key={prod.id}>
               <img src={prod.sprites.front_default} />
               <p>{prod.name}</p>
-              <p>{qtde}</p>
+              <p>{prod.price}</p>
             </div>
           )
         })}
+        <p>Total: R$ {total.toFixed(2)}</p>
       </div>
     </div>
   )
