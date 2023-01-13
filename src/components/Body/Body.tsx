@@ -7,7 +7,7 @@ import { Cart } from "../Cart/Cart";
 
 export function Body() {
 
-  const { pokemonsList } = useContext(PokemonContext)
+  const { pokemonsList, defineOffset, setDefineOffset } = useContext(PokemonContext)
 
   const [pickedPokem, setPickedPoken] = useState<PokemonGeneralType[]>([]);
 
@@ -18,9 +18,19 @@ export function Body() {
   let qtde = 0;
 
   // const isArr = Object.prototype.toString.call(pickedPokem) == '[object Array]';
-  // pickedPokem.push("Pikachu")
+  // pickedPokem.push("Pikachu");
 
-  console.log("TESTE", repeatedArray);
+  function pagForward() {
+    setDefineOffset((defineOffset) => defineOffset + 100);
+  }
+  function pagBackward() {
+    if (defineOffset >= 100) {
+      setDefineOffset((defineOffset) => defineOffset - 100)
+    } else if (defineOffset === 0) {
+      return;
+    }
+  }
+  //console.log("TESTE", repeatedArray);
 
   return (
     <div className="body-container">
@@ -54,6 +64,8 @@ export function Body() {
             </div>
           )
         })}
+        <button type="submit" onClick={pagBackward}>Voltar</button>
+        <button type="submit" onClick={pagForward}>Ir</button>
       </section>
 
       <Cart products={pickedPokem} />

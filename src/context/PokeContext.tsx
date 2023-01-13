@@ -6,7 +6,9 @@ import { PokemonSprites } from "../@types/PokemonSprites";
 import { NamedAPIResource } from "../@types/NamedApiResource";
 
 interface PokemonContextType {
-  pokemonsList: PokemonGeneralType
+  pokemonsList: PokemonGeneralType;
+  defineOffset: number;
+  setDefineOffset: React.Dispatch<React.SetStateAction<number>>;
 }
 
 interface PokemonContextProviderProps {
@@ -64,13 +66,7 @@ export function PokemonContextProvider({ children }: PokemonContextProviderProps
     price: 0
   });
 
-  // useEffect(() => {
-  //   api.get("?limit=10")
-  //     .then((response) => setPokemon(() => response.data))
-  //     .catch((err) => {
-  //       console.log("Não achei nenhum Pokémon :(" + err);
-  //     })
-  // }, [])
+  const [defineOffset, setDefineOffset] = useState<number>(0);
 
   let dataArray: any;
   let urlArr: any;
@@ -79,15 +75,26 @@ export function PokemonContextProvider({ children }: PokemonContextProviderProps
   useEffect(() => {
     //Traz a lista de Nome e URLs
 
-    api.get("?limit=10")
+    api.get(`?limit=100&offset=0`)
       .then((response) => {
         setFirstPokeList(response.data);
-        //console.log("STATE", firstPokeList);
       })
       .catch((err) => {
         console.log("Não achei nenhum Pokémon :(" + err);
       })
   }, []);
+
+  useEffect(() => {
+    //Traz a lista de Nome e URLs
+
+    api.get(`?limit=100&offset=${defineOffset}`)
+      .then((response) => {
+        setFirstPokeList(response.data);
+      })
+      .catch((err) => {
+        console.log("Não achei nenhum Pokémon :(" + err);
+      })
+  }, [defineOffset]);
 
   useEffect(() => {
     //ACESSA AS URLs e obtém mais dados dos Pokemons
@@ -107,10 +114,9 @@ export function PokemonContextProvider({ children }: PokemonContextProviderProps
     })
   }, [firstPokeList]);
 
-  //console.log("Context State", pokemonsList);
-
+  console.log("Offset Context", defineOffset);
   return (
-    <PokemonContext.Provider value={{ pokemonsList }}>
+    <PokemonContext.Provider value={{ pokemonsList, defineOffset, setDefineOffset }}>
       {children}
     </PokemonContext.Provider>
   )
