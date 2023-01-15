@@ -57,4 +57,6 @@ export interface PokemonGeneralType {
   types: PokemonType[];
 
   price: number;
+
+  qtde: number;
 }

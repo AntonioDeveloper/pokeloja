@@ -2,6 +2,7 @@ import { useContext, useState, useEffect } from "react";
 import { PokemonContext } from '../../context/PokeContext';
 import { PokemonGeneralType } from '../../@types/PokemonContextType';
 import { Cart } from "../Cart/Cart";
+import { Counter } from "../Counter/Counter";
 
 export function Body() {
 
@@ -12,13 +13,6 @@ export function Body() {
   const [pickedPokem, setPickedPoken] = useState<PokemonGeneralType[]>([]);
 
   const [repeatedArray, setRepeatedArray] = useState<PokemonGeneralType[]>([]);
-
-  // const [countPokemons, setCountPokemons] = useState<number>(0);
-
-  let qtde = 0;
-
-  // const isArr = Object.prototype.toString.call(pickedPokem) == '[object Array]';
-  // pickedPokem.push("Pikachu");
 
   function pagForward() {
     setDefineOffset((defineOffset) => defineOffset + 100);
@@ -31,8 +25,10 @@ export function Body() {
     }
   }
 
-  console.log("Body", selectedPokemon.name);
   //console.log("TESTE", repeatedArray);
+
+  console.log("REPEATED", repeatedArray);
+  let countProd = 1;
 
   return (
     <div className="body-container">
@@ -55,24 +51,28 @@ export function Body() {
             (
               pokemonsList.map((res: PokemonGeneralType) => {
                 return (
-
                   <div className="card" key={res.id} onClick={() => {
                     const repeatedItem = pickedPokem.find(item => {
                       return item === res
                     });
                     if (!repeatedItem) {
+                      res.qtde = Number(document.querySelector("#qtde")?.getAttribute("placeholder")) + 1;
                       setPickedPoken((pickedPokem: any) => [...pickedPokem, res]);
+
                     } else {
+                      res.qtde = Number(document.querySelector("#qtde")?.getAttribute("placeholder")) + 1;
                       setRepeatedArray((repeatedArray) => [...repeatedArray, res]);
-                      // setCountPokemons((countPokemons) => countPokemons + 1);
-                      console.log("OPS, já tenho esse item", repeatedItem);
+                      console.log("PLACEH", document.querySelector("#qtde")?.getAttribute("placeholder"));
+                      console.log("OPS, já tenho esse item", repeatedItem, "countProd", countProd);
                       return;
                     }
                     console.log("REPEATED", repeatedItem);
                   }}>
+                    <Counter />
                     <p>{res.name}</p>
                     <img src={res.sprites.front_default} />
                     <p>Preço: {res.price}</p>
+                    <p>Qtde: {res.qtde}</p>
                   </div>
                 )
               })
@@ -80,20 +80,19 @@ export function Body() {
             :
             (
               <div className="card" key={selectedPokemon.id}
-              // onClick={() => {
-              //   const repeatedItem = pickedPokem.find(item => {
-              //     return item === res
-              //   });
-              //   if (!repeatedItem) {
-              //     setPickedPoken((pickedPokem: any) => [...pickedPokem, res]);
-              //   } else {
-              //     setRepeatedArray((repeatedArray) => [...repeatedArray, res]);
-              //     // setCountPokemons((countPokemons) => countPokemons + 1);
-              //     console.log("OPS, já tenho esse item", repeatedItem);
-              //     return;
-              //   }
-              //   console.log("REPEATED", repeatedItem);
-              // }}
+                onClick={() => {
+                  const repeatedItem = pickedPokem.find(item => {
+                    return item === selectedPokemon
+                  });
+                  if (!repeatedItem) {
+                    setPickedPoken((pickedPokem: any) => [...pickedPokem, selectedPokemon]);
+                  } else {
+                    setRepeatedArray((repeatedArray) => [...repeatedArray, selectedPokemon]);
+                    // setCountPokemons((countPokemons) => countPokemons + 1);
+                    console.log("OPS, já tenho esse item", repeatedItem);
+                    return;
+                  }
+                }}
               >
                 <p>{selectedPokemon.name}</p>
                 <img src={selectedPokemon.sprites.front_default} />

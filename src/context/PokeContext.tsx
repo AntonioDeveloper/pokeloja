@@ -67,7 +67,9 @@ export function PokemonContextProvider({ children }: PokemonContextProviderProps
     /** A list of details showing types this Pokémon has */
     types: [],
 
-    price: 0
+    price: 0,
+
+    qtde: 0
   });
 
   const [pokemonsList, setPokemon] = useState<PokemonGeneralType>({
@@ -108,12 +110,16 @@ export function PokemonContextProvider({ children }: PokemonContextProviderProps
     /** A list of details showing types this Pokémon has */
     types: [],
 
-    price: 0
+    price: 0,
+
+    qtde: 0
   });
 
   const [defineOffset, setDefineOffset] = useState<number>(0);
 
   const [pokemonName, setPokemonName] = useState<string | undefined>("");
+
+  const [countProductsCart, setCountProductsCart] = useState<number>(0);
 
   let dataArray: any;
   let urlArr: any;
@@ -154,6 +160,7 @@ export function PokemonContextProvider({ children }: PokemonContextProviderProps
     })
     Promise.all(dataArray).then(res => {
       finalRes = res.map((r: any) => {
+        r.data.qtde = 0;
         r.data.price = parseFloat(((Math.random() * (100 - 10 + 1)) + 10).toFixed(2));
         return r.data;
       });
@@ -168,6 +175,7 @@ export function PokemonContextProvider({ children }: PokemonContextProviderProps
   useEffect(() => {
     api.get(`${pokemonName}`)
       .then((response) => {
+        response.data.price = parseFloat(((Math.random() * (100 - 10 + 1)) + 10).toFixed(2));
         setSelectedPokemon(response.data)
       })
       .catch((err) => {
