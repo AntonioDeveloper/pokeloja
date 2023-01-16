@@ -1,11 +1,17 @@
 import { useState, useEffect, MouseEvent } from 'react';
+import { PokemonGeneralType } from '../../@types/PokemonContextType';
 
-export function Counter() {
+interface Counter {
+  prod: PokemonGeneralType;
+}
+
+export function Counter({ prod }: Counter) {
 
   const [countProductsCart, setCountProductsCart] = useState<number>(0);
 
   useEffect(() => {
-    console.log("Counter", countProductsCart);
+    prod.qtde = countProductsCart;
+    console.log("Counter", prod.qtde);
   }, [countProductsCart])
 
   return (

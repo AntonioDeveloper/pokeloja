@@ -25,7 +25,7 @@ export function Body() {
     }
   }
 
-  //console.log("TESTE", repeatedArray);
+  console.log("BODY", pickedPokem);
 
   console.log("REPEATED", repeatedArray);
   let countProd = 1;
@@ -56,11 +56,11 @@ export function Body() {
                       return item === res
                     });
                     if (!repeatedItem) {
-                      res.qtde = Number(document.querySelector("#qtde")?.getAttribute("placeholder")) + 1;
+                      // res.qtde = Number(document.querySelector("#qtde")?.getAttribute("placeholder"));
                       setPickedPoken((pickedPokem: any) => [...pickedPokem, res]);
 
                     } else {
-                      res.qtde = Number(document.querySelector("#qtde")?.getAttribute("placeholder")) + 1;
+                      // res.qtde = Number(document.querySelector("#qtde")?.getAttribute("placeholder"));
                       setRepeatedArray((repeatedArray) => [...repeatedArray, res]);
                       console.log("PLACEH", document.querySelector("#qtde")?.getAttribute("placeholder"));
                       console.log("OPS, já tenho esse item", repeatedItem, "countProd", countProd);
@@ -68,11 +68,10 @@ export function Body() {
                     }
                     console.log("REPEATED", repeatedItem);
                   }}>
-                    <Counter />
+                    <Counter prod={res} />
                     <p>{res.name}</p>
                     <img src={res.sprites.front_default} />
                     <p>Preço: {res.price}</p>
-                    <p>Qtde: {res.qtde}</p>
                   </div>
                 )
               })

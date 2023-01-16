@@ -1,19 +1,29 @@
-import { useContext } from "react";
-import { PokemonContext } from '../../context/PokeContext';
 import { PokemonGeneralType } from '../../@types/PokemonContextType';
+import { useState, useEffect } from 'react';
 
 interface Products {
   products: any;
-
 }
 
 export function Cart({ products }: Products) {
 
-  console.log("PROD", products)
+  const [qtde, setQtde] = useState<number>(0);
+
+  useEffect(() => {
+    products.forEach((item: any) => {
+      setQtde(item.qtde);
+      console.log("EACH", item.qtde);
+    })
+  }, [products]);
+
+
+
+  console.log("Cart", products)
   //const { pokemonsList } = useContext(PokemonContext)
 
   const values: [] = products.map((prod: PokemonGeneralType) => {
-    return prod.price;
+    console.log("VALUE", prod.qtde);
+    return prod.price * prod.qtde;
   })
   console.log("PRICES", values)
 
@@ -24,11 +34,13 @@ export function Cart({ products }: Products) {
       <h1>Carrinho</h1>
       <div className="chosen-prods" >
         {products.map((prod: any) => {
+          console.log("MAP", prod, prod.qtde);
           return (
             <div className="prod-block" key={prod.id}>
               <img src={prod.sprites.front_default} />
               <p>{prod.name}</p>
               <p>{prod.price}</p>
+              <p className="cart-qtde">{qtde}</p>
             </div>
           )
         })}
