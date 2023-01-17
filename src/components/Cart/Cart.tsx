@@ -1,34 +1,86 @@
 import { PokemonGeneralType } from '../../@types/PokemonContextType';
 import { useState, useEffect } from 'react';
+import { CartProd } from '../CartProd/CartProd';
 
 interface Products {
   products: any;
+  repeated: any;
 }
 
-export function Cart({ products }: Products) {
+export function Cart({ products, repeated }: Products) {
 
   const [qtde, setQtde] = useState<number>(0);
+  let teste = 0;
 
   useEffect(() => {
     products.forEach((item: any) => {
-      setQtde(item.qtde);
-      console.log("EACH", item.qtde);
+      setQtde((item.qtde));
+
+      //console.log("EACH", item.qtde);
     })
-  }, [products]);
+  }, [products, repeated.length]);
 
 
+  teste = qtde;
 
-  console.log("Cart", products)
+  const [totalCart, setTotalCart] = useState<number>(0);
+
+  const [finalCart, setFinalCart] = useState<number>(0);
+
+  //console.log("Cart", products, "TESTE", teste);
   //const { pokemonsList } = useContext(PokemonContext)
 
-  const values: [] = products.map((prod: PokemonGeneralType) => {
-    console.log("VALUE", prod.qtde);
-    return prod.price * prod.qtde;
-  })
-  console.log("PRICES", values)
+  // const values: [] = products.map((prod: PokemonGeneralType) => {
+  //   //console.log("VALUE", teste);
+  //   return prod.price * teste;
+  // });
+  let finalRes = 0;
 
-  const total = values.reduce((acc: number, curr: number) => acc + curr, 0);
+  useEffect(() => {
 
+    const result = Array.from(document.querySelectorAll(".total-cart"));
+    const totalRes = result.map((res: any) => {
+      return parseFloat(res.innerHTML.slice(7, res.innerHTML.length));
+    });
+
+    finalRes = totalRes.reduce((acc: number, curr: number) => {
+      return acc + curr;
+    }, 0);
+
+    setFinalCart(finalRes);
+    console.log("TOTAL", totalRes);
+  }, [totalCart]);
+
+  function testeEffect() {
+    return finalRes;
+  }
+
+  useEffect(() => {
+    console.log("FINAL", finalRes);
+    testeEffect();
+  }, [finalRes])
+  console.log("FORA", finalCart);
+  //console.log("MUDEI", cartArr)
+
+  // const i = cartArr.reduce((acc: number, curr: number) => {
+  //   return acc + curr;
+  // }, 0);
+
+  // console.log("SOMA", i);
+
+  //console.log("VALUE", prodVal);
+
+  // products.forEach((prod: PokemonGeneralType) => {
+  //   setQtde((prodVal: any) => [...prodVal, (prod.price * teste));
+  //   console.log("VALUE", teste);
+  //   return prod.price * teste;
+  // });
+
+  //console.log("PRICES", values)
+
+  //const total = values.reduce((acc: number, curr: number) => acc + curr, 0);
+
+  //console.log("totalCart", totalCart);
   return (
     <div className="cart-container">
       <h1>Carrinho</h1>
@@ -36,15 +88,10 @@ export function Cart({ products }: Products) {
         {products.map((prod: any) => {
           console.log("MAP", prod, prod.qtde);
           return (
-            <div className="prod-block" key={prod.id}>
-              <img src={prod.sprites.front_default} />
-              <p>{prod.name}</p>
-              <p>{prod.price}</p>
-              <p className="cart-qtde">{qtde}</p>
-            </div>
+            <CartProd item={prod} totalCart={totalCart} setTotalCart={setTotalCart} />
           )
         })}
-        <p>Total: R$ {total.toFixed(2)}</p>
+        <p>Total: R$ {finalCart.toFixed(2)}</p>
       </div>
     </div>
   )

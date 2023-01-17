@@ -103,7 +103,7 @@ export function Body() {
         <button type="submit" onClick={pagForward}>Ir</button>
       </section>
 
-      <Cart products={pickedPokem} />
+      <Cart products={pickedPokem} repeated={repeatedArray} />
 
     </div>
   )
