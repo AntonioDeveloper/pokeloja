@@ -33,80 +33,83 @@ export function Body() {
 
   return (
     <div className="body-container">
+      <div className="search-bar">
+        <form className="find-pokemon">
+          <input type="text" name="pesquisar" placeholder="Pesquisar" />
+          <button type="submit" onClick={(e) => {
+            e.preventDefault();
 
-      <form className="find-pokemon">
-        <input type="text" name="pesquisar" placeholder="Pesquisar" />
-        <button type="submit" onClick={(e) => {
-          e.preventDefault();
+            pokemonName = document.querySelector("input")?.value;
 
-          pokemonName = document.querySelector("input")?.value;
+            setPokemonName(pokemonName);
 
-          setPokemonName(pokemonName);
+          }}>Buscar</button>
+        </form>
+      </div>
 
-        }}>Buscar</button>
-      </form>
+      <section className="board-cart">
+        <div className="board">
+          {
+            selectedPokemon.name === undefined ?
+              (
+                pokemonsList.map((res: PokemonGeneralType) => {
+                  return (
+                    <div className="card" key={res.id} onClick={() => {
+                      const repeatedItem = pickedPokem.find(item => {
+                        return item === res
+                      });
+                      if (!repeatedItem) {
+                        // res.qtde = Number(document.querySelector("#qtde")?.getAttribute("placeholder"));
+                        setPickedPoken((pickedPokem: any) => [...pickedPokem, res]);
 
-      <section className="board">
-        {
-          selectedPokemon.name === undefined ?
-            (
-              pokemonsList.map((res: PokemonGeneralType) => {
-                return (
-                  <div className="card" key={res.id} onClick={() => {
+                      } else {
+                        // res.qtde = Number(document.querySelector("#qtde")?.getAttribute("placeholder"));
+                        setRepeatedArray((repeatedArray) => [...repeatedArray, res]);
+                        console.log("PLACEH", document.querySelector("#qtde")?.getAttribute("placeholder"));
+                        console.log("OPS, já tenho esse item", repeatedItem, "countProd", countProd);
+                        return;
+                      }
+                      console.log("REPEATED", repeatedItem);
+                    }}>
+                      <p className="poke-name" >{res.name}</p>
+                      <img src={res.sprites.front_default} />
+                      <p className="poke-price" >Preço: {res.price}</p>
+                      <Counter prod={res} />
+                    </div>
+                  )
+                })
+              )
+              :
+              (
+                <div className="card" key={selectedPokemon.id}
+                  onClick={() => {
                     const repeatedItem = pickedPokem.find(item => {
-                      return item === res
+                      return item === selectedPokemon
                     });
                     if (!repeatedItem) {
-                      // res.qtde = Number(document.querySelector("#qtde")?.getAttribute("placeholder"));
-                      setPickedPoken((pickedPokem: any) => [...pickedPokem, res]);
-
+                      setPickedPoken((pickedPokem: any) => [...pickedPokem, selectedPokemon]);
                     } else {
-                      // res.qtde = Number(document.querySelector("#qtde")?.getAttribute("placeholder"));
-                      setRepeatedArray((repeatedArray) => [...repeatedArray, res]);
-                      console.log("PLACEH", document.querySelector("#qtde")?.getAttribute("placeholder"));
-                      console.log("OPS, já tenho esse item", repeatedItem, "countProd", countProd);
+                      setRepeatedArray((repeatedArray) => [...repeatedArray, selectedPokemon]);
+                      // setCountPokemons((countPokemons) => countPokemons + 1);
+                      console.log("OPS, já tenho esse item", repeatedItem);
                       return;
                     }
-                    console.log("REPEATED", repeatedItem);
-                  }}>
-                    <p>{res.name}</p>
-                    <img src={res.sprites.front_default} />
-                    <p>Preço: {res.price}</p>
-                    <Counter prod={res} />
-                  </div>
-                )
-              })
-            )
-            :
-            (
-              <div className="card" key={selectedPokemon.id}
-                onClick={() => {
-                  const repeatedItem = pickedPokem.find(item => {
-                    return item === selectedPokemon
-                  });
-                  if (!repeatedItem) {
-                    setPickedPoken((pickedPokem: any) => [...pickedPokem, selectedPokemon]);
-                  } else {
-                    setRepeatedArray((repeatedArray) => [...repeatedArray, selectedPokemon]);
-                    // setCountPokemons((countPokemons) => countPokemons + 1);
-                    console.log("OPS, já tenho esse item", repeatedItem);
-                    return;
-                  }
-                }}
-              >
-                <p>{selectedPokemon.name}</p>
-                <img src={selectedPokemon.sprites.front_default} />
-                <p>Preço: {selectedPokemon.price}</p>
-                <CounterSelected prodSelected={selectedPokemon} />
-              </div>
-            )
-        }
+                  }}
+                >
+                  <p>{selectedPokemon.name}</p>
+                  <img src={selectedPokemon.sprites.front_default} />
+                  <p>Preço: {selectedPokemon.price}</p>
+                  <CounterSelected prodSelected={selectedPokemon} />
+                </div>
+              )
+          }
+        </div>
+        <Cart products={pickedPokem} repeated={repeatedArray} />
+      </section>
+      <div className="control-buttons">
         <button type="submit" onClick={pagBackward}>Voltar</button>
         <button type="submit" onClick={pagForward}>Ir</button>
-      </section>
-
-      <Cart products={pickedPokem} repeated={repeatedArray} />
-
+      </div>
     </div>
   )
 }

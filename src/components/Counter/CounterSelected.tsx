@@ -1,5 +1,6 @@
 import { useState, useEffect, MouseEvent } from 'react';
 import { PokemonGeneralType } from '../../@types/PokemonContextType';
+import { CounterStyles } from './styles';
 
 interface CounterSelected {
   prodSelected: PokemonGeneralType;
@@ -15,25 +16,27 @@ export function CounterSelected({ prodSelected }: CounterSelected) {
   }, [countProductsCart])
 
   return (
-    <form className="counter">
-      <input type="button" id="minus" name="minus" value="-" onClick={
-        (e: MouseEvent) => {
-          e.preventDefault();
-          if (countProductsCart !== 0) {
-            setCountProductsCart((countProductsCart) => countProductsCart - 1);
-          } else {
-            return;
+    <CounterStyles>
+      <form className="counter">
+        <input type="button" id="minus" name="minus" value="-" onClick={
+          (e: MouseEvent) => {
+            e.preventDefault();
+            if (countProductsCart !== 0) {
+              setCountProductsCart((countProductsCart) => countProductsCart - 1);
+            } else {
+              return;
+            }
+          }
+        } />
+        <input type="text" id="qtde" name="qtde" placeholder={`${countProductsCart}`} disabled />
+        <input type="button" id="plus" name="plus" value="+" onClick={
+          (e: MouseEvent) => {
+            e.preventDefault();
+            setCountProductsCart((countProductsCart) => countProductsCart + 1);
           }
         }
-      } />
-      <input type="text" id="qtde" name="qtde" placeholder={`${countProductsCart}`} disabled />
-      <input type="button" id="plus" name="plus" value="+" onClick={
-        (e: MouseEvent) => {
-          e.preventDefault();
-          setCountProductsCart((countProductsCart) => countProductsCart + 1);
-        }
-      }
-      />
-    </form>
+        />
+      </form>
+    </CounterStyles>
   )
 }

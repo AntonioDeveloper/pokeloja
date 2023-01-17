@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { CartProdContainer } from "./styles";
 
 interface CartProd {
   item: any;
@@ -26,12 +27,14 @@ export function CartProd({ item, totalCart, setTotalCart }: CartProd) {
   //console.log("CartProd", total, "TOTAL ARR", totalArr, "QTDE", item.qtde);
 
   return (
-    <div className="prod-block" key={item.id}>
-      <img src={item.sprites.front_default} />
-      <p>{item.name}</p>
-      <p>{item.price}</p>
-      <p className="total-cart">Total: {total.toFixed(2)}</p>
-      <p className="cart-qtde">{item.qtde}</p>
-    </div>
+    <CartProdContainer>
+      <div className="prod-block" key={item.id}>
+        <img src={item.sprites.front_default} />
+        <p className="poke-name">{item.name}</p>
+        <p>{item.price}</p>
+        <p className="total-cart">Total: {total.toFixed(2)}</p>
+        <p className="cart-qtde">{item.qtde}</p>
+      </div>
+    </CartProdContainer>
   )
 }

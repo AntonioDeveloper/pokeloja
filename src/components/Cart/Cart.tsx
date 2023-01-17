@@ -1,6 +1,7 @@
 import { PokemonGeneralType } from '../../@types/PokemonContextType';
 import { useState, useEffect } from 'react';
 import { CartProd } from '../CartProd/CartProd';
+import { CartContainer } from './styles';
 
 interface Products {
   products: any;
@@ -82,17 +83,19 @@ export function Cart({ products, repeated }: Products) {
 
   //console.log("totalCart", totalCart);
   return (
-    <div className="cart-container">
-      <h1>Carrinho</h1>
-      <div className="chosen-prods" >
-        {products.map((prod: any) => {
-          console.log("MAP", prod, prod.qtde);
-          return (
-            <CartProd item={prod} totalCart={totalCart} setTotalCart={setTotalCart} />
-          )
-        })}
-        <p>Total: R$ {finalCart.toFixed(2)}</p>
+    <CartContainer>
+      <div className="cart-container">
+        <h1>Carrinho</h1>
+        <div className="chosen-prods" >
+          {products.map((prod: any) => {
+            console.log("MAP", prod, prod.qtde);
+            return (
+              <CartProd item={prod} totalCart={totalCart} setTotalCart={setTotalCart} />
+            )
+          })}
+          <p>Total: R$ {finalCart.toFixed(2)}</p>
+        </div>
       </div>
-    </div>
+    </CartContainer>
   )
 }

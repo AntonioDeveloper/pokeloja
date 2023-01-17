@@ -1,12 +1,16 @@
 import { Body } from './components/Body/Body';
+import { ContentContainer } from './components/Body/styles';
 import { PokemonContextProvider } from './context/PokeContext';
+import { GlobalStyle } from './styles/global';
 
 export function App() {
 
-
   return (
     <PokemonContextProvider>
-      <Body />
+      <ContentContainer>
+        <Body />
+      </ContentContainer>
+      <GlobalStyle />
     </PokemonContextProvider>
   )
 }
