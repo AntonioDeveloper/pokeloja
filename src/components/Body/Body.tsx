@@ -3,6 +3,7 @@ import { PokemonContext } from '../../context/PokeContext';
 import { PokemonGeneralType } from '../../@types/PokemonContextType';
 import { Cart } from "../Cart/Cart";
 import { Counter } from "../Counter/Counter";
+import { CounterSelected } from "../Counter/CounterSelected";
 
 export function Body() {
 
@@ -68,10 +69,10 @@ export function Body() {
                     }
                     console.log("REPEATED", repeatedItem);
                   }}>
-                    <Counter prod={res} />
                     <p>{res.name}</p>
                     <img src={res.sprites.front_default} />
                     <p>Preço: {res.price}</p>
+                    <Counter prod={res} />
                   </div>
                 )
               })
@@ -96,6 +97,7 @@ export function Body() {
                 <p>{selectedPokemon.name}</p>
                 <img src={selectedPokemon.sprites.front_default} />
                 <p>Preço: {selectedPokemon.price}</p>
+                <CounterSelected prodSelected={selectedPokemon} />
               </div>
             )
         }
