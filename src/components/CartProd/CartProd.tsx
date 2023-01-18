@@ -31,9 +31,9 @@ export function CartProd({ item, totalCart, setTotalCart }: CartProd) {
       <div className="prod-block" key={item.id}>
         <img src={item.sprites.front_default} />
         <p className="poke-name">{item.name}</p>
-        <p>{item.price}</p>
+        <p className="item-price">R$ {item.price}</p>
         <p className="total-cart">Total: {total.toFixed(2)}</p>
-        <p className="cart-qtde">{item.qtde}</p>
+        <p className="cart-qtde">Qtde: {item.qtde}</p>
       </div>
     </CartProdContainer>
   )

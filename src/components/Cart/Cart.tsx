@@ -90,10 +90,10 @@ export function Cart({ products, repeated }: Products) {
           {products.map((prod: any) => {
             console.log("MAP", prod, prod.qtde);
             return (
-              <CartProd item={prod} totalCart={totalCart} setTotalCart={setTotalCart} />
+              <CartProd key={prod.id} item={prod} totalCart={totalCart} setTotalCart={setTotalCart} />
             )
           })}
-          <p>Total: R$ {finalCart.toFixed(2)}</p>
+          <p className="total-value"><strong>Total: </strong>R$ {finalCart.toFixed(2)}</p>
         </div>
       </div>
     </CartContainer>

@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const CounterStyles = styled.form`
+export const CounterStyles = styled.div`
   margin-top: 10px;
 
   input[type="text"] {
