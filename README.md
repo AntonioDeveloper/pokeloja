@@ -7,4 +7,4 @@ de catálogo de pokemóns!
 - React
 - Typescript
 - Styled Components
-- PokeAPI [PokeAPI](https://pokeapi.co/)
+- [PokeAPI](https://pokeapi.co/)
