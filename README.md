@@ -9,4 +9,8 @@ de catálogo de pokemóns!
 - Styled Components
 - [PokeAPI](https://pokeapi.co/)
 
+### Rode o projeto com:
+- npm install e em seguida...
+- npm run dev
+
 ![Screenshot of the site](https://github.com/AntonioDeveloper/pokeloja/blob/main/src/assets/pokeloja.png)
