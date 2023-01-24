@@ -8,3 +8,4 @@ de catálogo de pokemóns!
 - Typescript
 - Styled Components
 - [PokeAPI](https://pokeapi.co/)
+
